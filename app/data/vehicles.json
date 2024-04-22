@@ -1,5 +1,16 @@
 [
   {
+    "make": "Mercedes-Benz",
+    "model": "A-Class Saloon",
+    "engineSize": "1.8L",
+    "fuel": "diesel",
+    "year": 2023,
+    "mileage": 1767,
+    "auctionDateTime": "2024/04/23 15:45:00",
+    "startingBid": 17000,
+    "favourite": true
+  },
+  {
     "make": "Toyota",
     "model": "C-HR",
     "engineSize": "1.8L",
