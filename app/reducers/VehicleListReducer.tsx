@@ -10,10 +10,8 @@ export const VehicleListReducer = (state, action: any) => {
         imgSrc: require('../assets/carImage/images.jpeg'),
       }));
     case VehicleListActionTypes.FILTER_DATA:
-      // const [temp, setTemp] = useState(state);
       const filterValue = action.payload;
       const keys = Object.keys(action.payload);
-      // console.log(filterValue[keys[1]], keys[1]);
       let newState = state;
 
       const finter11 = key => {
@@ -25,9 +23,6 @@ export const VehicleListReducer = (state, action: any) => {
           if (keys[i] === 'startingBid') {
             const from = parseInt(filterValue[keys[i]].from) || 0;
             const to = parseInt(filterValue[keys[i]]?.to) || 9999999900000000;
-            const startingBid = parseInt(filterValue['startingBid']);
-
-            console.log(to, from, newState.length);
 
             newState = newState.filter(
               v =>
@@ -39,29 +34,6 @@ export const VehicleListReducer = (state, action: any) => {
         }
         console.log('i: ', i, keys[i], filterValue[keys[i]], newState.length);
       }
-      console.log(newState.length);
-      // newState = newState.filter(v =>
-      //   filterValue[keys[0]]?.includes(v[keys[0]]),
-      // );
-      // console.log('s1: ', newState.length);
-
-      // newState = newState.filter(v =>
-      //   filterValue[keys[1]]?.includes(v[keys[1]]),
-      // );
-      // console.log('s1: ', newState.length);
-
-      // newState = newState.filter(v =>
-      //   filterValue[keys[2]]?.includes(v[keys[2]]),
-      // );
-      // console.log('s1: ', newState.length);
-
-      // let s1 = state.filter(v => filterValue[keys[0]]?.includes(v[keys[0]]));
-      // let s2 = s1.filter(v => filterValue[keys[1]]?.includes(v[keys[1]]));
-      // let s3 = s2.filter(v => filterValue[keys[2]]?.includes(v[keys[2]]));
-
-      // console.log('s1: ', s1.length);
-      // console.log('s2 ', s2.length);
-      // console.log('s3 ', s3.length);
 
       return newState;
 
@@ -70,7 +42,6 @@ export const VehicleListReducer = (state, action: any) => {
       const getVehileById = vehicles =>
         vehicles.map(item => {
           if (vehicleId === item.id) {
-            // update whatever you want
             return {...item, favourite: !item.favourite};
           } else {
             return item;
