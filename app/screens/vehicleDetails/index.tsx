@@ -8,8 +8,14 @@ import {View, Text, Image, ScrollView} from 'react-native';
 /*********************************** Custom Components ***********************/
 import Screen from '../../components/screen';
 import Header from '../../components/header';
+import CountDown from '../../components/countdown';
 
 /*********************************** Utility *********************************/
+import {
+  formateDateTime,
+  isFutureDateTime,
+  stringToDateTimeObj,
+} from '../../utility/dateTime';
 
 /*********************************** Styles **********************************/
 import Styles from './styles';
@@ -20,6 +26,11 @@ const VehicleDetails = () => {
   const navigation = useNavigation();
 
   const vehicleDetails = route.params;
+
+  const bidStartDateTime = stringToDateTimeObj(vehicleDetails?.auctionDateTime);
+  const isFutureBidStartDate = isFutureDateTime(bidStartDateTime);
+
+  const [hasCountdownFinished, setHasCountdownFinished] = useState(false);
 
   /********************************* Effects *********************************/
 
@@ -48,9 +59,20 @@ const VehicleDetails = () => {
             <Text style={Styles.VehicleModelText}>{vehicleDetails?.model}</Text>
           </View>
           <Image style={Styles.VehicleImage} source={vehicleDetails?.imgSrc} />
-          <View>
-            <Text>Bid Started</Text>
-            <Text>{vehicleDetails?.auctionDateTime}</Text>
+          <View style={Styles.BidDateTimeContainer}>
+            <Text>
+              {isFutureBidStartDate ? 'Bid starts in' : 'Bid Started'}
+            </Text>
+            <Text style={Styles.BidDateTimeText}>
+              {isFutureBidStartDate && !hasCountdownFinished ? (
+                <CountDown
+                  dateTimeObj={bidStartDateTime}
+                  onFilished={() => setHasCountdownFinished(true)}
+                />
+              ) : (
+                formateDateTime(bidStartDateTime)
+              )}
+            </Text>
           </View>
           <View style={Styles.StatingBidAndFavouriteContainer}>
             <View>

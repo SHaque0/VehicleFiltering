@@ -79,6 +79,13 @@ const Styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+  BidDateTimeContainer: {
+    padding: 8,
+  },
+  BidDateTimeText: {
+    fontSize: 17,
+    fontWeight: '500',
+  },
 });
 
 export default Styles;
