@@ -12,7 +12,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 /*********************************** Custom Hooks ****************************/
 
 /*********************************** Custom Components ***********************/
-import PostLoginScreen from '../../screens/postLogin';
 import VehicleListScreen from '../../screens/vehicleList';
 import ModalScreen from '../../components/modal';
 import VehicleDetails from '../../screens/vehicleDetails';
@@ -23,7 +22,6 @@ import VehicleDetails from '../../screens/vehicleDetails';
 
 /*********************************** Types ***********************************/
 export type RootNavigatorParams = {
-  PostLogin;
   VehicleList;
   Modal;
   VehicleDetails;
@@ -52,7 +50,6 @@ const RootNavigator = () => {
           headerShown: false,
         }}>
         <RootStack.Group>
-          <RootStack.Screen name="PostLogin" component={PostLoginScreen} />
           <RootStack.Screen name="VehicleList" component={VehicleListScreen} />
           <RootStack.Screen name="VehicleDetails" component={VehicleDetails} />
         </RootStack.Group>
