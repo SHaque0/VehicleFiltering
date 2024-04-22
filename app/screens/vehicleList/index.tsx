@@ -83,7 +83,7 @@ const VehicleList = () => {
   const onPressFilter = () => {
     dispatch(resetData(Data));
     dispatch(initData());
-    navigation.navigate('Modal', {modelList, makeList});
+    navigation.navigate('Modal', {modelList, makeList, filterBy});
   };
 
   const onPressVehicleCard = vehicleInfo => {

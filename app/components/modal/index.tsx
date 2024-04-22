@@ -32,31 +32,31 @@ const Modal = () => {
 
   const route: any = useRoute();
   const navigation = useNavigation<StackNavigationProp<RootNavigatorParams>>();
-  const {makeList, modelList} = route.params || null;
+  const {makeList, modelList, filterBy} = route.params || null;
   const sliderWidth = Dimensions.get('screen').width * 0.83;
 
-  const [fromBid, setFromBid] = useState(BID_MIN_RANGE);
-  const [toBid, setToBid] = useState(BID_MAX_RANGE);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [fromBid, setFromBid] = useState(
+    filterBy?.startingBid?.from || BID_MIN_RANGE,
+  );
+  const [toBid, setToBid] = useState(
+    filterBy?.startingBid?.to || BID_MAX_RANGE,
+  );
+  const [isFavorite, setIsFavorite] = useState(filterBy?.favourite || [false]);
   const [isMakerPress, setIsMakerPress] = useState(false);
   const [isModelPress, setIsModelPress] = useState(false);
-  const [selectedMake, setSelectedMake] = useState([]);
-  const [selectedModel, setSelectedModel] = useState([]);
+  const [selectedMake, setSelectedMake] = useState(filterBy?.make || []);
+  const [selectedModel, setSelectedModel] = useState(filterBy?.model || []);
 
   /********************************* Effects *********************************/
 
   /********************************* Utility Functions ***********************/
 
   /********************************* Handler *********************************/
-  const onPressClose = () => {
-    navigation.goBack();
-  };
-
-  const onPressShowResult = () => {
+  const onCloseModal = () => {
     navigation.navigate('VehicleList', {
       make: selectedMake.length > 0 ? selectedMake : null,
       model: selectedModel.length > 0 ? selectedModel : null,
-      favourite: isFavorite ? [isFavorite] : null,
+      favourite: isFavorite.length > 0 && isFavorite[0] ? isFavorite : null,
       startingBid: {
         from: fromBid,
         to: toBid,
@@ -71,14 +71,20 @@ const Modal = () => {
     }
   };
 
-  const onPressCheckBox = () => setIsFavorite(prev => !prev);
+  const onPressCheckBox = () => {
+    setIsFavorite([!isFavorite[0]]);
+  };
+
+  const onPressResetFilter = () => {
+    navigation.navigate('VehicleList');
+  };
 
   /********************************* Animated Styles *************************/
 
   /********************************* Partial Render **************************/
   const renderCloseModal = () => {
     return (
-      <TouchableOpacity onPress={onPressClose}>
+      <TouchableOpacity onPress={onCloseModal}>
         <Image
           style={Styles.CloseIcon}
           source={require('../../assets/icons/icons-close.png')}
@@ -133,7 +139,7 @@ const Modal = () => {
             <Text style={Styles.FavouriteFilterText}>Favorite</Text>
             <CheckBox
               onPressCheckBox={onPressCheckBox}
-              checkBoxValue={isFavorite}
+              checkBoxValue={isFavorite[0]}
             />
           </View>
         </View>
@@ -175,8 +181,13 @@ const Modal = () => {
       />
       {renderFilter()}
       <View style={Styles.ButtonContainer}>
-        <TouchableOpacity onPress={onPressShowResult} style={Styles.Button}>
+        <TouchableOpacity onPress={onCloseModal} style={Styles.Button}>
           <Text style={Styles.ButtonText}>Show Result</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={Styles.ClearFilterButton}
+          onPress={onPressResetFilter}>
+          <Text style={Styles.ClearFilterButtonText}>Reset Filter</Text>
         </TouchableOpacity>
       </View>
     </View>

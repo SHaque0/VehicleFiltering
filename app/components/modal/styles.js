@@ -111,11 +111,16 @@ const Styles = StyleSheet.create({
     height: 35,
   },
   ButtonContainer: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
     marginBottom: 90,
+  },
+  ClearFilterButton: {
+    marginTop: 20,
+  },
+  ClearFilterButtonText: {
+    color: '#999999',
   },
   Button: {
     padding: 12,

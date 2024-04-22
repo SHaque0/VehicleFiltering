@@ -32,7 +32,7 @@ export const VehicleListReducer = (state, action: any) => {
             newState = finter11(keys[i]);
           }
         }
-        console.log('i: ', i, keys[i], filterValue[keys[i]], newState.length);
+        // console.log('i: ', i, keys[i], filterValue[keys[i]], newState.length);
       }
 
       return newState;
