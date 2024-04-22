@@ -10,36 +10,34 @@ import {
 } from 'react-native';
 
 /*********************************** Librarys ********************************/
-import {useFocusEffect} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 /*********************************** Data ************************************/
-
-/*********************************** Enum ************************************/
-
-/*********************************** Custom Hooks ****************************/
-
-/*********************************** Custom Components ***********************/
-import Screen from '../../components/screen';
-import Header from '../../components/header';
-
-/*********************************** Utility *********************************/
-
-/*********************************** Styles **********************************/
-import Styles from './styles';
-
 import Data from '../../data/vehicles.json';
+
+/*********************************** Reducers ************************************/
 import {VehicleListReducer} from '../../reducers/VehicleListReducer';
+
+/*********************************** Actions ****************************/
 import {
   initData,
   filterByKey,
   toggleFavouriteAction,
   resetData,
 } from '../../actions/VehicleListAction';
+
+/*********************************** Custom Components ***********************/
+import Screen from '../../components/screen';
+import Header from '../../components/header';
 import VehicleCard from '../../components/vehicleCard';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {RootNavigatorParams} from '../../components/rootNavigator';
+
+/*********************************** Utility *********************************/
 import {getAllUnickValueByKey} from '../../utility/dataManager';
+
+/*********************************** Styles **********************************/
+import Styles from './styles';
 
 const VehicleList = () => {
   /********************************* Initialization **************************/
@@ -48,28 +46,12 @@ const VehicleList = () => {
   const route = useRoute();
   const filterBy = route.params;
 
-  const dummyData = [
-    {
-      make: 'Toyota',
-      model: 'C-HR',
-      engineSize: '1.8L',
-      fuel: 'diesel',
-      year: 2022,
-      mileage: 743,
-      auctionDateTime: '2024/04/21 15:15:00',
-      startingBid: 17000,
-      favourite: true,
-    },
-  ];
-
   const [makeList, setMakeList] = useState([{}]);
   const [modelList, setModelList] = useState([{}]);
-  const [startingBidList, setStartingBidList] = useState({});
 
   /********************************* Effects *********************************/
   useEffect(() => {
     if (filterBy) {
-      console.log('im here: ', filterBy);
       dispatch(filterByKey(filterBy));
     } else {
       dispatch(initData());
@@ -81,7 +63,6 @@ const VehicleList = () => {
   const preparationForFilter = () => {
     const getAllMake = getAllUnickValueByKey(Data, 'make');
     const getAllModel = getAllUnickValueByKey(Data, 'model');
-    const getAllStartingBid = getAllUnickValueByKey(Data, 'startingBid');
 
     const allMakeObj = getAllMake.map(make => {
       return {label: make, value: make};
@@ -89,13 +70,9 @@ const VehicleList = () => {
     const allModelObj = getAllModel.map(make => {
       return {label: make, value: make};
     });
-    const allStartingBidObj = getAllStartingBid.map(startingBid => {
-      return {label: startingBid, value: startingBid};
-    });
 
     setMakeList(allMakeObj);
     setModelList(allModelObj);
-    setStartingBidList(allStartingBidObj);
   };
 
   /********************************* Handler *********************************/
@@ -110,7 +87,6 @@ const VehicleList = () => {
   };
 
   const onPressVehicleCard = vehicleInfo => {
-    console.log('working..');
     navigation.navigate('VehicleDetails', vehicleInfo);
   };
 
@@ -141,7 +117,6 @@ const VehicleList = () => {
         <View style={Styles.Container}>
           <FlatList
             data={vehicleList || []}
-            // getItemLayout={getItemLayout}
             initialNumToRender={5}
             maxToRenderPerBatch={10}
             windowSize={10}
