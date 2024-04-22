@@ -11,14 +11,17 @@ import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
 /*********************************** Custom Hooks ****************************/
 
 /*********************************** Custom Components ***********************/
-import PostLogin from './app/screens/postLogin';
-import RootNavigator from './app/components/rootNavigator';
 
 /*********************************** Utility *********************************/
 
 /*********************************** Styles **********************************/
+import Styles from './styles';
 
-const App = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const Screen: React.FC<Props> = ({children}) => {
   /********************************* Initialization **************************/
 
   /********************************* Effects *********************************/
@@ -32,7 +35,17 @@ const App = () => {
   /********************************* Partial Render **************************/
 
   /*********************************  Render *********************************/
-  return <RootNavigator />;
+  return (
+    <SafeAreaView style={Styles.Container}>
+      <StatusBar
+        // backgroundColor={themeColors.primaryBackgroundColor}
+        hidden={false}
+        // barStyle={isDark ? 'light-content' : 'dark-content'}
+      />
+
+      {children}
+    </SafeAreaView>
+  );
 };
 
-export default App;
+export default Screen;

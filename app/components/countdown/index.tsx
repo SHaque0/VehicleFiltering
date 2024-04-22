@@ -1,6 +1,8 @@
 /*********************************** React ***********************************/
+import moment, {duration} from 'moment';
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
+import {Text} from 'react-native';
+import {isFutureDateTime} from '../../utility/dateTime';
 
 /*********************************** Librarys ********************************/
 
@@ -11,17 +13,37 @@ import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
 /*********************************** Custom Hooks ****************************/
 
 /*********************************** Custom Components ***********************/
-import PostLogin from './app/screens/postLogin';
-import RootNavigator from './app/components/rootNavigator';
 
 /*********************************** Utility *********************************/
 
 /*********************************** Styles **********************************/
 
-const App = () => {
+const CountDown = ({dateTimeObj, onFilished}) => {
   /********************************* Initialization **************************/
+  const today = moment();
+
+  const [countdown, setCountdown] = useState('');
 
   /********************************* Effects *********************************/
+  useEffect(() => {
+    if (isFutureDateTime(dateTimeObj)) {
+      const timer = setInterval(() => {
+        const duration = moment.duration(dateTimeObj.diff(today));
+        const countdownFormat = `${Math.floor(duration.asDays())}d ${Math.floor(
+          duration.hours(),
+        )}h ${duration.minutes()}m ${duration.seconds()}s`;
+        setCountdown(countdownFormat);
+      }, 1000);
+
+      return () => {
+        clearInterval(timer);
+      };
+    }
+
+    if (countdown === '0d 0h 0m 0s') {
+      onFilished();
+    }
+  }, [countdown]);
 
   /********************************* Utility Functions ***********************/
 
@@ -32,7 +54,7 @@ const App = () => {
   /********************************* Partial Render **************************/
 
   /*********************************  Render *********************************/
-  return <RootNavigator />;
+  return <Text>{countdown}</Text>;
 };
 
-export default App;
+export default CountDown;

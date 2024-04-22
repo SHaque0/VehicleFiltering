@@ -1,6 +1,6 @@
 /*********************************** React ***********************************/
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 
 /*********************************** Librarys ********************************/
 
@@ -11,14 +11,18 @@ import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
 /*********************************** Custom Hooks ****************************/
 
 /*********************************** Custom Components ***********************/
-import PostLogin from './app/screens/postLogin';
-import RootNavigator from './app/components/rootNavigator';
 
 /*********************************** Utility *********************************/
 
 /*********************************** Styles **********************************/
+import Styles from './styles';
 
-const App = () => {
+const Header = ({
+  hasBackButton = false,
+  onPressBackButton,
+  headerText,
+  extra,
+}) => {
   /********************************* Initialization **************************/
 
   /********************************* Effects *********************************/
@@ -32,7 +36,21 @@ const App = () => {
   /********************************* Partial Render **************************/
 
   /*********************************  Render *********************************/
-  return <RootNavigator />;
+  return (
+    <View style={Styles.HeaderContainer}>
+      {hasBackButton && (
+        <TouchableOpacity onPress={onPressBackButton} style={Styles.BackButton}>
+          <View>
+            <Image source={require('../../assets/icons/left-arrow.png')} />
+          </View>
+        </TouchableOpacity>
+      )}
+      <View style={Styles.HeaderBody}>
+        <Text style={Styles.HeaderText}>{headerText}</Text>
+      </View>
+      <View style={Styles.HeaderLeft}>{extra && extra}</View>
+    </View>
+  );
 };
 
-export default App;
+export default Header;

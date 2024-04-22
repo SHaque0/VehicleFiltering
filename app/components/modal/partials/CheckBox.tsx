@@ -1,6 +1,7 @@
 /*********************************** React ***********************************/
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
+import Styles from '../styles';
 
 /*********************************** Librarys ********************************/
 
@@ -11,14 +12,12 @@ import {KeyboardAvoidingView, SafeAreaView, StatusBar} from 'react-native';
 /*********************************** Custom Hooks ****************************/
 
 /*********************************** Custom Components ***********************/
-import PostLogin from './app/screens/postLogin';
-import RootNavigator from './app/components/rootNavigator';
 
 /*********************************** Utility *********************************/
 
 /*********************************** Styles **********************************/
 
-const App = () => {
+const CheckBox = ({checkBoxValue, onPressCheckBox}) => {
   /********************************* Initialization **************************/
 
   /********************************* Effects *********************************/
@@ -32,7 +31,18 @@ const App = () => {
   /********************************* Partial Render **************************/
 
   /*********************************  Render *********************************/
-  return <RootNavigator />;
+  return (
+    <TouchableOpacity onPress={onPressCheckBox}>
+      <Image
+        style={Styles.CheckoBoxStyle}
+        source={
+          checkBoxValue
+            ? require('../../../assets/icons/icons-checed.png')
+            : require('../../../assets/icons/icons-unchecked.png')
+        }
+      />
+    </TouchableOpacity>
+  );
 };
 
-export default App;
+export default CheckBox;
