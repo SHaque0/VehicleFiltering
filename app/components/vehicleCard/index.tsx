@@ -54,7 +54,11 @@ const VehicleCard = ({vehicleInfo, toggleFavourite}) => {
           />
         </View>
         <Image source={vehicleInfo.imgSrc} style={Styles.VehicleImage} />
-        <View style={Styles.AuctionDateTimeContainer(isFutureBidStartDate)}>
+        <View
+          style={[
+            Styles.AuctionDateTimeContainer,
+            isFutureBidStartDate && Styles.AuctionDateTimeUpComing,
+          ]}>
           <Text style={Styles.AuctionDateTimeText}>
             {isFutureBidStartDate ? 'bid starts in' : 'bid started'}
           </Text>

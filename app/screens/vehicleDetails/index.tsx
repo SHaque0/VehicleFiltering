@@ -22,11 +22,11 @@ import Styles from './styles';
 
 const VehicleDetails = () => {
   /********************************* Initialization **************************/
-  const route = useRoute();
+  const route: any = useRoute();
   const navigation = useNavigation();
 
   const vehicleDetails = route.params;
-  console.log(vehicleDetails);
+
   /********************************* Effects *********************************/
 
   /********************************* Utility Functions ***********************/

@@ -36,17 +36,18 @@ const Styles = StyleSheet.create({
   VehicleImage: {
     width: '100%',
   },
-  AuctionDateTimeContainer: isFutureDate => {
-    return {
-      position: 'absolute',
-      bottom: 10,
-      left: 0,
-      backgroundColor: isFutureDate ? 'red' : 'green',
-      paddingHorizontal: 8,
-      paddingVertical: 2,
-      borderTopRightRadius: 4,
-      borderBottomRightRadius: 4,
-    };
+  AuctionDateTimeContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: 0,
+    backgroundColor: 'green',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderTopRightRadius: 4,
+    borderBottomRightRadius: 4,
+  },
+  AuctionDateTimeUpComing: {
+    backgroundColor: 'red',
   },
   AuctionDateTimeText: {
     color: '#fff',
