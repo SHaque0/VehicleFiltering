@@ -30,7 +30,7 @@ const Modal = () => {
   const BID_MAX_RANGE = 30000;
   const MIN_BID = 1000;
 
-  const route = useRoute();
+  const route: any = useRoute();
   const navigation = useNavigation<StackNavigationProp<RootNavigatorParams>>();
   const {makeList, modelList} = route.params || null;
   const sliderWidth = Dimensions.get('screen').width * 0.83;
