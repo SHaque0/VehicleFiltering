@@ -73,6 +73,7 @@ const Styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
+    maxWidth: 250,
   },
   EngineSizeText: {
     fontSize: 15,
